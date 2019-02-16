@@ -7,7 +7,7 @@ const express = require('express');
 
 
 const app = express();
-const port = 3000;
+const port = normalizePort(process.env.PORT || '8080');
 app.set('port',port);
 
 const server = http.createServer(app);
@@ -17,10 +17,43 @@ const route = router.get('/', (req, res, next)=>{
     res.status(200).send({
         title:"node Store API",
         autor:"Gustavo Garcia Pereira",
+        email:"gusgurtavo@gmail.com",
         versio:"0.0.1"
     });
 });
 app.use('/',route);
 
 server.listen(port);
+server.on('error ', onError);
 console.log("API rodando na porta: " + port);
+
+function normalizePort(val){
+    const port = parseInt(val, 10);
+
+    if(isNaN(port)){
+        return val;
+    }
+    if(port >= 0){
+        return port;
+    }
+    return false;
+}
+
+function onError(error){
+    if(error.syscall !== 'listen'){
+        throw error;
+    }
+
+    const bind = typeof port === 'string' ? 'Pipe' + port : 'Port' + port;
+
+    switch(error.code){
+        case 'EACCES':
+            console.error(bind + ' require elevated');
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            break;
+        default:
+            throw error;
+    }
+}
