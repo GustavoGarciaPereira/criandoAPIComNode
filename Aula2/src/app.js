@@ -1,0 +1,18 @@
+'use strict'
+
+
+const express = require('express');
+const app = express();
+const router = express.Router();
+
+const route = router.get('/', (req, res, next)=>{
+    res.status(200).send({
+        title:"node Store API",
+        autor:"Gustavo Garcia Pereira",
+        email:"gusgurtavo@gmail.com",
+        versio:"0.0.1"
+    });
+});
+app.use('/',route);
+
+module.exports = app;
