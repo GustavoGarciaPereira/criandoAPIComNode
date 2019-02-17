@@ -27,7 +27,7 @@ const put = router.put('/:id', (req, res, next) => {
     });
 });
 
-const del = router.delite('/', (req, res, next) => {
+const del = router.delete('/', (req, res, next) => {
     res.status(200).send(req.body);
 });
 
